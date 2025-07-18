@@ -22,21 +22,21 @@ namespace PetFinder.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IReadOnlyList<PetAppUser>> Index()
+        public async Task<ActionResult<IReadOnlyList<PetAppUser>>> IndexAsync()
         {
-            return Ok(_context.PetUsers.ToList());
+            return await _context.PetUsers.ToListAsync();
         }
         
         
         [HttpGet("{id}")]
-        public ActionResult<PetAppUser> GetByID(string id)
+        public async Task<ActionResult<PetAppUser>> GetByIDAsync(string id)
         {
-            var pet = _context.PetUsers.Find(id);
+            var pet = await _context.PetUsers.FindAsync(id);
 
             if(pet==null)
                 return NotFound();
 
-            return Ok(pet);
+            return pet;
         }
 
     
